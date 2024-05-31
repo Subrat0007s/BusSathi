@@ -1,0 +1,40 @@
+
+.landingpages img:first-child{
+
+    height: 100px;
+    width: 110px;
+
+
+}
+
+.landingpages :last-child img{
+    height: 100px;
+    width: 100px;
+} 
+
+.landingpages {
+    text-align: center;
+    left: 27%;
+    top: 25%;
+   
+    border-radius: 20px;
+    padding: 40px 0px;
+   
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px 0px 10px gray;
+    width: 50%;
+}
+
+.landingpages a{
+    transition: 1s;
+    text-decoration: none;
+    font-size: 20px;
+    color: chocolate;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.landingpages a:hover{
+    transform: scale(1.1);
+}

@@ -1,0 +1,38 @@
+{
+  "employees": [
+    {
+      "id": "1",
+      "name": "Prajwal"
+    },
+    {
+      "id": "11c8",
+      "empName": "prem mehra",
+      "empSalary": "200000",
+      "empCompany": "infy"
+    },
+    {
+      "id": "ffb8",
+      "empName": "himanshu",
+      "empSalary": "213131",
+      "empCompany": "tcs"
+    },
+    {
+      "id": "6d78",
+      "empName": "azam",
+      "empSalary": "56251362",
+      "empCompany": "infy"
+    },
+    {
+      "id": "a78a",
+      "empName": "mona",
+      "empSalary": "214334",
+      "empCompany": "ress"
+    },
+    {
+      "id": "79c3",
+      "empName": "raghav",
+      "empSalary": "344324",
+      "empCompany": "jsp"
+    }
+  ]
+}
