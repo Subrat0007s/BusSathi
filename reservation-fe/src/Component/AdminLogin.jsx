@@ -15,7 +15,9 @@ function verify(e){
     axios.post(`http://localhost:8088/api/admins/verify-by-email?email=${email}&password=${password}`)
     .then((res)=>{
         navigate('/adminhomepage')
-        alert("Login Successfull.")
+        alert("Login Successfull.");
+        console.log(res.data.data);
+        localStorage.setItem("Admin",JSON.stringify(res.data.data));
     })
     .catch((err)=>{
         alert("Login Failed.")

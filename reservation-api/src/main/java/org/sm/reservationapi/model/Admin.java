@@ -31,6 +31,7 @@ public class Admin {
 	private String gst_number, email;
 	@Column(nullable = false)
 	private String password;
+	@Column(unique = true)
 	private String token;
 	@Column(nullable = false)
 	private String status;

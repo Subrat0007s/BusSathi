@@ -5,16 +5,17 @@ import java.util.Optional;
 import org.sm.reservationapi.dao.AdminDao;
 import org.sm.reservationapi.dto.AdminRequest;
 import org.sm.reservationapi.dto.AdminResponse;
+import org.sm.reservationapi.dto.EmailConfiguration;
 import org.sm.reservationapi.dto.ResponseStrcture;
 import org.sm.reservationapi.exception.AdminNotFoundException;
 import org.sm.reservationapi.model.Admin;
+import org.sm.reservationapi.util.ApplicationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
-import net.bytebuddy.utility.RandomString;
 
 @Service
 public class AdminService {
@@ -22,6 +23,10 @@ public class AdminService {
 	private AdminDao adminDao;
 	@Autowired
 	private ReservationApiMailService mailService;
+	@Autowired
+	private LinkGeneratorService linkGeneratorService;
+	@Autowired
+	private EmailConfiguration emailConfiguration;
 
 	private Admin mapAdmin(AdminRequest adminRequest) {
 		return Admin.builder().name(adminRequest.getName()).phone(adminRequest.getPhone())
@@ -32,7 +37,7 @@ public class AdminService {
 	private AdminResponse mapAdminResponse(Admin admin) {
 		return AdminResponse.builder().id(admin.getId()).name(admin.getName()).phone(admin.getPhone())
 				.email(admin.getEmail()).gst_number(admin.getGst_number()).travels_name(admin.getTravels_name())
-				.password(admin.getPassword()).build();
+				.build();
 	}
 
 	public String activate(String token) {
@@ -49,18 +54,15 @@ public class AdminService {
 
 	public ResponseEntity<ResponseStrcture<AdminResponse>> add(AdminRequest adminRequest, HttpServletRequest request) {
 		ResponseStrcture<AdminResponse> strcture = new ResponseStrcture<>();
-		String url = request.getRequestURL().toString();
-		String path = request.getServletPath();
-		String activation_link = url.replace(path, "/api/admins/activate");
-		String token = RandomString.make(56);
-		activation_link += "?token=" + token;
-		System.out.println(activation_link);
 		Admin admin = mapAdmin(adminRequest);
-		admin.setToken(token);
-		admin.setStatus("IN_ACTIVE");
-		adminDao.saveAdmin(admin);
+		admin.setStatus(ApplicationStatus.IN_ACTIVE.toString());
+		admin = adminDao.saveAdmin(admin);
+		String activation_link = linkGeneratorService.getActivateAdmin(admin, request);
+		emailConfiguration.setSubject("Activate Your Account.");
+		emailConfiguration.setText("Click here : " + activation_link);
+		emailConfiguration.setToAddress(admin.getEmail());
 		strcture.setData(mapAdminResponse(admin));
-		strcture.setMessage(mailService.sendMail(admin.getEmail(), activation_link));
+		strcture.setMessage(mailService.sendMail(emailConfiguration));
 		strcture.setStatus(HttpStatus.CREATED.value());
 		return ResponseEntity.status(HttpStatus.CREATED).body(strcture);
 	}
@@ -114,12 +116,18 @@ public class AdminService {
 		ResponseStrcture<AdminResponse> strcture = new ResponseStrcture<>();
 		Optional<Admin> data = adminDao.verifyByphone(phone, password);
 		if (data.isPresent()) {
-			strcture.setData(mapAdminResponse(data.get()));
-			strcture.setMessage("Admin Verified");
-			strcture.setStatus(HttpStatus.OK.value());
-			return ResponseEntity.status(HttpStatus.OK).body(strcture);
+			Admin admin = data.get();
+			if (admin.getStatus() != "IN_ACTIVE") {
+				throw new AdminNotFoundException("Please verify your email credentials.");
+			} else {
+				strcture.setData(mapAdminResponse(data.get()));
+				strcture.setMessage("Admin Verified");
+				strcture.setStatus(HttpStatus.OK.value());
+				return ResponseEntity.status(HttpStatus.OK).body(strcture);
+			}
 		}
-		throw new AdminNotFoundException("Invalid Credentials!!!");
+		throw new AdminNotFoundException("Invalid credentials.");
+
 	}
 
 	public ResponseEntity<ResponseStrcture<AdminResponse>> verifyAdmin(String email, String password) {

@@ -3,19 +3,20 @@ package org.sm.reservationapi.service;
 import java.util.Optional;
 
 import org.sm.reservationapi.dao.UserDao;
+import org.sm.reservationapi.dto.EmailConfiguration;
 import org.sm.reservationapi.dto.ResponseStrcture;
 import org.sm.reservationapi.dto.UserRequest;
 import org.sm.reservationapi.dto.UserResponse;
 import org.sm.reservationapi.exception.AdminNotFoundException;
 import org.sm.reservationapi.exception.UserNotFoundException;
 import org.sm.reservationapi.model.User;
+import org.sm.reservationapi.util.ApplicationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpServletRequest;
-import net.bytebuddy.utility.RandomString;
 
 @Service
 public class UserService {
@@ -23,6 +24,10 @@ public class UserService {
 	private UserDao userDao;
 	@Autowired
 	private ReservationApiMailService mailService;
+	@Autowired
+	private LinkGeneratorService generatorService;
+	@Autowired
+	private EmailConfiguration configuration;
 
 	private User mapUser(UserRequest userRequest) {
 		return User.builder().name(userRequest.getName()).phone(userRequest.getPhone()).email(userRequest.getEmail())
@@ -49,18 +54,16 @@ public class UserService {
 
 	public ResponseEntity<ResponseStrcture<UserResponse>> addUser(UserRequest userRequest, HttpServletRequest request) {
 		ResponseStrcture<UserResponse> strcture = new ResponseStrcture<>();
-		String url = request.getRequestURL().toString();
-		String path = request.getServletPath();
-		String activation_link = url.replace(path, "/api/users/activate");
-		String token = RandomString.make(56);
-		activation_link += "?token=" + token;
-		System.out.println(activation_link);
 		User user = mapUser(userRequest);
-		user.setToken(token);
-		user.setStatus("IN-ACTIVE");
-		userDao.saveUser(user);
+		user.setStatus(ApplicationStatus.IN_ACTIVE.toString());
+		user = userDao.saveUser(user);
+		String activation_link = generatorService.getActivateUser(user, request);
+		System.out.println(activation_link);
+		configuration.setSubject("Verify Your Account.");
+		configuration.setText("Click here To Verify: " + activation_link);
+		configuration.setToAddress(user.getEmail());
 		strcture.setData(mapUserRsponse(user));
-		strcture.setMessage(mailService.sendMail(user.getEmail(), activation_link));
+		strcture.setMessage(mailService.sendMail(configuration));
 		strcture.setStatus(HttpStatus.CREATED.value());
 		return ResponseEntity.status(HttpStatus.CREATED).body(strcture);
 	}

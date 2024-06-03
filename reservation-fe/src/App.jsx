@@ -10,9 +10,7 @@ import AdminSignUp from "./Component/AdminSignUp"
 import AdminHomePage from "./Component/AdminHomePage"
 import PageNotFound from "./Component/PageNotFound"
 
-
 const App = () => {
-
     return (
         <div>
            <BrowserRouter>
@@ -22,7 +20,7 @@ const App = () => {
                    <Route element={<AdminLogin/>} path="/adminlogin"/>
                    <Route element={<UserLogin/>} path="/userlogin"  />
                    <Route element={<AdminSignUp/>} path="/adminsignup" />
-                   <Route element={<AdminHomePage/>} path="/adminhomepage"></Route>
+                   <Route element={<AdminHomePage/>} path="/adminhomepage/*"></Route>
                 </Routes>
             </BrowserRouter> 
         </div>

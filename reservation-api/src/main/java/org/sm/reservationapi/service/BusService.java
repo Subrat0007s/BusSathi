@@ -55,8 +55,8 @@ public class BusService {
 		throw new BusNotFoundException("Invalid Admin Id");
 	}
 
-	public ResponseEntity<ResponseStrcture<Bus>> updateBus(Integer id, BusRequest request) {
-		ResponseStrcture<Bus> strcture = new ResponseStrcture<>();
+	public ResponseEntity<ResponseStrcture<BusResponse>> updateBus(Integer id, BusRequest request) {
+		ResponseStrcture<BusResponse> strcture = new ResponseStrcture<>();
 		Optional<Bus> data = busDao.findById(id);
 		if (data.isPresent()) {
 			Bus bus = mapBus(request);
@@ -68,7 +68,7 @@ public class BusService {
 			bus.setToLoc(request.getToLoc());
 			bus.setNoOfSeats(request.getNoOfSeats());
 			bus.setAdmin(request.getAdmin());
-			strcture.setData(busDao.save(bus));
+			strcture.setData(mapBusResponse(busDao.save(bus)));
 			strcture.setMessage("Bus Added");
 			strcture.setStatus(HttpStatus.CREATED.value());
 			return ResponseEntity.status(HttpStatus.CREATED).body(strcture);
@@ -76,11 +76,11 @@ public class BusService {
 		throw new BusNotFoundException("Invalid User Id");
 	}
 
-	public ResponseEntity<ResponseStrcture<Bus>> findByBusId(Integer id) {
-		ResponseStrcture<Bus> strcture = new ResponseStrcture<>();
+	public ResponseEntity<ResponseStrcture<BusResponse>> findByBusId(Integer id) {
+		ResponseStrcture<BusResponse> strcture = new ResponseStrcture<>();
 		Optional<Bus> data = busDao.findById(id);
 		if (data.isPresent()) {
-			strcture.setData(data.get());
+			strcture.setData(mapBusResponse(data.get()));
 			strcture.setMessage("Bus Details.");
 			strcture.setStatus(HttpStatus.FOUND.value());
 			return ResponseEntity.status(HttpStatus.FOUND).body(strcture);
@@ -88,11 +88,11 @@ public class BusService {
 		throw new BusNotFoundException("Invalid User Id");
 	}
 
-	public ResponseEntity<ResponseStrcture<Bus>> findByBusNo(String busno) {
-		ResponseStrcture<Bus> strcture = new ResponseStrcture<>();
+	public ResponseEntity<ResponseStrcture<BusResponse>> findByBusNo(String busno) {
+		ResponseStrcture<BusResponse> strcture = new ResponseStrcture<>();
 		Optional<Bus> data = busDao.findByBusNo(busno);
 		if (data.isPresent()) {
-			strcture.setData(data.get());
+			strcture.setData(mapBusResponse(data.get()));
 			strcture.setMessage("Bus Details.");
 			strcture.setStatus(HttpStatus.FOUND.value());
 			return ResponseEntity.status(HttpStatus.FOUND).body(strcture);
