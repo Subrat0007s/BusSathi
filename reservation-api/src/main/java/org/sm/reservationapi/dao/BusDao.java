@@ -1,5 +1,6 @@
 package org.sm.reservationapi.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.sm.reservationapi.model.Bus;
@@ -22,5 +23,8 @@ public class BusDao {
 
     public Optional<Bus> findByBusNo(String busno) {
         return repository.findByBusno(busno);
+    }
+    public List<Bus> findAllBus() {
+    	return repository.findAll();
     }
 }

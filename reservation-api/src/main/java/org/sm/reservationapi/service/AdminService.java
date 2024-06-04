@@ -117,8 +117,8 @@ public class AdminService {
 		Optional<Admin> data = adminDao.verifyByphone(phone, password);
 		if (data.isPresent()) {
 			Admin admin = data.get();
-			if (admin.getStatus() != "IN_ACTIVE") {
-				throw new AdminNotFoundException("Please verify your email credentials.");
+			if (admin.getStatus().equals(ApplicationStatus.IN_ACTIVE.toString())) {
+				throw new IllegalStateException("Please verify your Email Address.");
 			} else {
 				strcture.setData(mapAdminResponse(data.get()));
 				strcture.setMessage("Admin Verified");
@@ -127,17 +127,21 @@ public class AdminService {
 			}
 		}
 		throw new AdminNotFoundException("Invalid credentials.");
-
 	}
 
 	public ResponseEntity<ResponseStrcture<AdminResponse>> verifyAdmin(String email, String password) {
 		ResponseStrcture<AdminResponse> strcture = new ResponseStrcture<>();
 		Optional<Admin> data = adminDao.verifyByEmail(email, password);
 		if (data.isPresent()) {
-			strcture.setData(mapAdminResponse(data.get()));
-			strcture.setMessage("Admin Verified");
-			strcture.setStatus(HttpStatus.OK.value());
-			return ResponseEntity.status(HttpStatus.OK).body(strcture);
+			Admin admin = data.get();
+			if (admin.getStatus().equals(ApplicationStatus.IN_ACTIVE.toString())) {
+				throw new IllegalStateException("Please verify your email Address First.");
+			} else {
+				strcture.setData(mapAdminResponse(data.get()));
+				strcture.setMessage("Admin Verified");
+				strcture.setStatus(HttpStatus.OK.value());
+				return ResponseEntity.status(HttpStatus.OK).body(strcture);
+			}
 		}
 		throw new AdminNotFoundException("Invalid Credentials!!!");
 	}

@@ -9,6 +9,7 @@ import UserLogin from "./Component/UserLogin"
 import AdminSignUp from "./Component/AdminSignUp"
 import AdminHomePage from "./Component/AdminHomePage"
 import PageNotFound from "./Component/PageNotFound"
+import UserSignup from "./Component/UserSignup";
 
 const App = () => {
     return (
@@ -18,9 +19,10 @@ const App = () => {
                     <Route element={<PageNotFound/>} path="/*"/>
                    <Route element={<LandingPage/>} path="/"/>
                    <Route element={<AdminLogin/>} path="/adminlogin"/>
-                   <Route element={<UserLogin/>} path="/userlogin"  />
                    <Route element={<AdminSignUp/>} path="/adminsignup" />
                    <Route element={<AdminHomePage/>} path="/adminhomepage/*"></Route>
+                   <Route element={<UserLogin/>} path="/userlogin"  />
+                   <Route element={<UserSignup/>} path="/usersignup" />
                 </Routes>
             </BrowserRouter> 
         </div>

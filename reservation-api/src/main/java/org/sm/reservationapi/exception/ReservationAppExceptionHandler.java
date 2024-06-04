@@ -46,4 +46,14 @@ public class ReservationAppExceptionHandler {
 		}
 		return errors;
 	}
+
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ExceptionHandler(IllegalStateException.class)
+	public ResponseEntity<ResponseStrcture<String>> illegalStateHandle(IllegalStateException exception) {
+		ResponseStrcture<String> strcture = new ResponseStrcture<>();
+		strcture.setData("Can't sign-in");
+		strcture.setMessage(exception.getMessage());
+		strcture.setStatus(HttpStatus.UNAUTHORIZED.value());
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(strcture);
+	}
 }

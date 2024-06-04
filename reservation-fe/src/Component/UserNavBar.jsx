@@ -1,17 +1,17 @@
 import React from 'react'
-import AdminDropDowns from './AdminDropDowns'
-import "../Style/adminnavbar.css"
-function AdminNavBar() {
+import UserDropDown from './UserDropDown'
+
+const UserNavBar = () => {
   return (
     <div className="navbar">
         <div className="logo">
             <h1><i>BusSathi</i><sup><i>.com</i></sup> </h1>
         </div>
         <div className="option">
-            <AdminDropDowns/>
+            <UserDropDown/>
         </div>
     </div>
   )
 }
 
-export default AdminNavBar
+export default UserNavBar

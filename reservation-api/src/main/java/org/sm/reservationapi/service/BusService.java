@@ -1,5 +1,6 @@
 package org.sm.reservationapi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.sm.reservationapi.dao.AdminDao;
@@ -98,5 +99,14 @@ public class BusService {
 			return ResponseEntity.status(HttpStatus.FOUND).body(strcture);
 		}
 		throw new BusNotFoundException("Invalid User Id");
+	}
+
+	public ResponseEntity<ResponseStrcture<List<Bus>>> findAllBusDetails() {
+		ResponseStrcture<List<Bus>> strcture = new ResponseStrcture<>();
+		List<Bus> bus = busDao.findAllBus();
+		strcture.setData(bus);
+		strcture.setMessage("List of All Buses");
+		strcture.setStatus(HttpStatus.OK.value());
+		return ResponseEntity.status(HttpStatus.OK).body(strcture);
 	}
 }

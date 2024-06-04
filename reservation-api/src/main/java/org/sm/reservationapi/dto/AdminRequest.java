@@ -19,7 +19,7 @@ public class AdminRequest {
 	private Long phone;
 	@Email(message = "Invalid Email Format.")
 	private String email;
-	@Size(min = 15,max = 15)
+	@Size(min = 15, max = 15)
 	@NotBlank(message = "GST Number Is Mandatory!")
 	private String gst_number;
 	@NotBlank(message = "Password Is Mandatory!")

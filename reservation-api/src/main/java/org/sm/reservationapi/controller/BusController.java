@@ -1,8 +1,11 @@
 package org.sm.reservationapi.controller;
 
+import java.util.List;
+
 import org.sm.reservationapi.dto.BusRequest;
 import org.sm.reservationapi.dto.BusResponse;
 import org.sm.reservationapi.dto.ResponseStrcture;
+import org.sm.reservationapi.model.Bus;
 import org.sm.reservationapi.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +47,10 @@ public class BusController {
 	@GetMapping("/find-By-BusNo/{busno}")
 	public ResponseEntity<ResponseStrcture<BusResponse>> findbyBusNo(@PathVariable(name = "busno") String busno) {
 		return service.findByBusNo(busno);
+	}
+
+	@GetMapping()
+	public ResponseEntity<ResponseStrcture<List<Bus>>> findAllBus() {
+		return service.findAllBusDetails();
 	}
 }
