@@ -27,4 +27,10 @@ public class BusDao {
     public List<Bus> findAllBus() {
     	return repository.findAll();
     }
+    public List<Bus> findByDestination(String from, String to, String date){
+    	return repository.findByDestination(from, to, date);
+    }
+    public void deleteBus(Integer bus_id) {
+    	repository.deleteById(bus_id);
+    }
 }

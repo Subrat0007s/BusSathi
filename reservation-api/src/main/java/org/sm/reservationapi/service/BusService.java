@@ -109,4 +109,26 @@ public class BusService {
 		strcture.setStatus(HttpStatus.OK.value());
 		return ResponseEntity.status(HttpStatus.OK).body(strcture);
 	}
+
+	public ResponseEntity<ResponseStrcture<List<Bus>>> findSpecificBusDetails(String from, String to, String date) {
+		ResponseStrcture<List<Bus>> strcture = new ResponseStrcture<>();
+		List<Bus> bus = busDao.findByDestination(from, to, date);
+		strcture.setData(bus);
+		strcture.setMessage("List of All Buses From: " + from + ", To: " + to);
+		strcture.setStatus(HttpStatus.OK.value());
+		return ResponseEntity.status(HttpStatus.OK).body(strcture);
+	}
+
+	public ResponseEntity<ResponseStrcture<String>> deleteBus(Integer admin_id, Integer bus_id) {
+		ResponseStrcture<String> strcture = new ResponseStrcture<>();
+		Optional<Admin> admin = adminDao.findById(admin_id);
+		if (admin.isPresent()) {
+			strcture.setData(null);
+			busDao.deleteBus(bus_id);
+			strcture.setMessage("Bus Deleted");
+			strcture.setStatus(HttpStatus.OK.value());
+			return ResponseEntity.status(HttpStatus.OK).body(strcture);
+		}
+		throw new BusNotFoundException("Invalid User Id or admin id");
+	}
 }

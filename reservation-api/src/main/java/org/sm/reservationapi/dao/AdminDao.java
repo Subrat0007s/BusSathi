@@ -27,10 +27,16 @@ public class AdminDao {
 	public Optional<Admin> verifyByEmail(String email, String Password) {
 		return adminRepository.verifyByEmail(email, Password);
 	}
+
 	public Optional<Admin> verifyByphone(Long phone, String Password) {
 		return adminRepository.verifyByPhone(phone, Password);
 	}
-	public Optional<Admin> findByToken(String token){
+
+	public Optional<Admin> findByToken(String token) {
 		return adminRepository.findByToken(token);
+	}
+
+	public Optional<Admin> findByEmail(String eamil) {
+		return adminRepository.findByEmail(eamil);
 	}
 }

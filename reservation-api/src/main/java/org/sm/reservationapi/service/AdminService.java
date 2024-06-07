@@ -145,4 +145,30 @@ public class AdminService {
 		}
 		throw new AdminNotFoundException("Invalid Credentials!!!");
 	}
+
+	public String forgotPassword(String email, HttpServletRequest request) {
+		Optional<Admin> optionalAdmin = adminDao.findByEmail(email);
+		if (optionalAdmin.isEmpty()) {
+			throw new AdminNotFoundException("Invalid Email Address.");
+		}
+		Admin admin = optionalAdmin.get();
+		String resetLink = linkGeneratorService.getResetPasswordLink(admin, request);
+		emailConfiguration.setToAddress(email);
+		emailConfiguration.setSubject("Reset Password Link.");
+		emailConfiguration.setText("click this following link to reset your password " + resetLink);
+		mailService.sendMail(emailConfiguration);
+		return "Reset Link has been sent to your email please verify it";
+	}
+
+	public AdminResponse verifyLink(String token) {
+		Optional<Admin> optionalAdmin = adminDao.findByToken(token);
+		if (optionalAdmin.isEmpty()) {
+			throw new AdminNotFoundException("Link Has been Expired or invalid");
+		}
+		Admin admin = optionalAdmin.get();
+		admin.setToken(null);
+		adminDao.saveAdmin(admin);
+		return mapAdminResponse(admin);
+	}
+
 }

@@ -1,10 +1,13 @@
 package org.sm.reservationapi.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,4 +35,6 @@ public class User {
 	public String token;
 	@Column(nullable = false)
 	public String status;
+	@OneToMany(mappedBy = "user")
+	private List<User> ticket;
 }

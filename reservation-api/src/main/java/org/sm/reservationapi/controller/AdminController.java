@@ -1,5 +1,7 @@
 package org.sm.reservationapi.controller;
 
+import java.io.IOException;
+
 import org.sm.reservationapi.dto.AdminRequest;
 import org.sm.reservationapi.dto.AdminResponse;
 import org.sm.reservationapi.dto.ResponseStrcture;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @CrossOrigin
@@ -65,4 +68,22 @@ public class AdminController {
 	public String accountActivate(@RequestParam String token) {
 		return adminService.activate(token);
 	}
+
+	@PostMapping("/verify-email")
+	public String verifyEmailAddress(@RequestParam String email, HttpServletRequest request) {
+		return adminService.forgotPassword(email, request);
+	}
+
+	@GetMapping("/verify-link")
+	public void verifyPassword(@RequestParam String token, HttpServletResponse response) {
+		AdminResponse adminResponse = adminService.verifyLink(token);
+		if (adminResponse != null) {
+			try {
+				response.sendRedirect("http://localhost:3000/resetpassword");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }

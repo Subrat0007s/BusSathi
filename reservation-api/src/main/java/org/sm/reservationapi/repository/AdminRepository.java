@@ -15,4 +15,6 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	public Optional<Admin> verifyByPhone(Long phone, String password);
 
 	public Optional<Admin> findByToken(String token);
+
+	public Optional<Admin> findByEmail(String email);
 }
