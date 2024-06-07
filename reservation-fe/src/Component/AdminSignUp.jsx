@@ -18,7 +18,7 @@ const AdminSignUp = () => {
         axios.post('http://localhost:8088/api/admins',data)
         .then((res)=>
             {
-                alert("Admin Added Successfully! ");
+                alert("Admin had Successfully sign-up! ");
                 console.log(res);
             })
         .catch((err)=>

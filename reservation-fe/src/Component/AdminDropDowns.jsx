@@ -10,7 +10,7 @@ function AdminDropDowns() {
         <Dropdown.Menu>
             <Dropdown.Item href="/adminhomepage/addbus">Add Bus</Dropdown.Item>
             <Dropdown.Item href="/adminhomepage/viewbus">Bus Lists</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Edit profile</Dropdown.Item>
+            <Dropdown.Item href="/adminhomepage/editbus">Edit profile</Dropdown.Item>
             <Dropdown.Item href="#/action-3">Log-out</Dropdown.Item>
         </Dropdown.Menu>
         </Dropdown>

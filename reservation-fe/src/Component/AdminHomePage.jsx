@@ -4,6 +4,7 @@ import AdminDashBoard from './AdminDashBoard'
 import AdminNavBar from './AdminNavBar'
 import AddBus from './AddBus'
 import ViewAllBus from './ViewAllBus'
+import EditBus from './EditBus'
 
 function AdminHomePage() {
   return (
@@ -13,6 +14,7 @@ function AdminHomePage() {
             <Route path='/' element={<AdminDashBoard/>}></Route>
             <Route path='/addbus' element={<AddBus/>}></Route>
             <Route path='/viewbus' element={<ViewAllBus/>}/>
+            <Route path='/editbus/:id' element={<EditBus/>}/>
         </Routes>
     </div>
   )
