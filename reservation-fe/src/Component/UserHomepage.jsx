@@ -1,15 +1,16 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import UserDashBoard from './UserDashBoard'
-import AdminNavBar from './AdminNavBar'
+import UserNavBar from './UserNavBar'
+import EditUserDetails from './EditUserDetails'
 
 const UserHomepage = () => {
   return (
     <div>
-        <AdminNavBar/>
+        <UserNavBar/>
         <Routes>
             <Route path='/' element={<UserDashBoard/>}/>
-            
+            <Route path='/edituserdetails' element={<EditUserDetails/>}/>
         </Routes>
     </div>
   )

@@ -1,13 +1,14 @@
 import React from 'react'
 import AdminDropDowns from './AdminDropDowns'
-import "../Style/adminnavbar.css"
+import styles from '../Style/adminnavbar.module.css' // Import the CSS module
+
 function AdminNavBar() {
   return (
-    <div className="navbar">
-        <div className="logo">
+    <div className={styles.navbar}>
+        <div className={styles.logo}>
             <h1><i>BusSathi</i><sup><i>.com</i></sup> </h1>
         </div>
-        <div className="option">
+        <div className={styles.dropdown}>
             <AdminDropDowns/>
         </div>
     </div>

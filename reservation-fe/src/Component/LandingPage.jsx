@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import  '../Style/landingage.css'
-
+import  style from '../Style/landingpage.module.css'
 
 const LandingPage = () => {
     return (
-        <div className='landingpages' >
+        <div className={style.landingpages} >
             <Link to="/adminlogin">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5jklFNY7Vi0fSWp_jprql9iDWsCZl-oeeNA&s" alt="" />
                 <h2>Admin</h2></Link>
@@ -15,5 +14,4 @@ const LandingPage = () => {
         </div>
     );
 }
-
 export default LandingPage;
