@@ -30,9 +30,9 @@ const AdminDashBoard = () => {
     <div className={styles.container}>
       <h1>Book Bus Tickets</h1>
       <form className={styles.form} onSubmit={searchBus}>
-        <input type="text" placeholder="From" required value={fromLoc} onChange={(e) => setFrom(e.target.value)} />
-        <input type="text" placeholder="To" required value={toLoc} onChange={(e) => setTo(e.target.value)} />
-        <input type="date" required value={departure_date_time} onChange={(e) => setDate(e.target.value)} />
+        <input type="text" placeholder="From" className={styles.input} required value={fromLoc} onChange={(e) => setFrom(e.target.value)} />
+        <input type="text" placeholder="To" className={styles.input} required value={toLoc} onChange={(e) => setTo(e.target.value)} />
+        <input type="date" className={styles.input} required value={departure_date_time} onChange={(e) => setDate(e.target.value)} />
         <button type="submit">Search</button>
       </form>
       <div className={styles.results}>
@@ -45,7 +45,7 @@ const AdminDashBoard = () => {
                 <i>Available Seats: {buses.availableSeats}</i>
                 <p>From: {buses.fromLoc}</p>
                 <p>To: {buses.toLoc}</p>
-                <p>Date: {buses.departure_date_time}</p>
+                {/* <p>Date: {buses.departure_date_time}</p> */}
                 <span>Bus Number: {buses.busno}</span>
                 <button className='btn btn-danger'>Book bus</button>
               </div>
