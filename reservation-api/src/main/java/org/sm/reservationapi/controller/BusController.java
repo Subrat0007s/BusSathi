@@ -1,5 +1,6 @@
 package org.sm.reservationapi.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.sm.reservationapi.dto.BusRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -56,8 +58,8 @@ public class BusController {
 	}
 
 	@GetMapping("/find-buses")
-	public ResponseEntity<ResponseStrcture<List<Bus>>> findBus(String fromLoc, String toLoc, String departure_date) {
-		return service.findSpecificBusDetails(fromLoc, toLoc, departure_date);
+	public ResponseEntity<ResponseStrcture<List<Bus>>> findBus(@RequestParam String fromLoc,@RequestParam String toLoc,@RequestParam LocalDate departure_date_time) {
+		return service.findSpecificBusDetails(fromLoc, toLoc, departure_date_time);
 	}
 
 	@DeleteMapping("/{adminid}/{userid}")

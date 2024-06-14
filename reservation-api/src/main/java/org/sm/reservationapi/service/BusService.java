@@ -1,5 +1,6 @@
 package org.sm.reservationapi.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,14 +25,15 @@ public class BusService {
 	private AdminDao adminDao;
 
 	private Bus mapBus(BusRequest request) {
-		return Bus.builder().name(request.getName()).departure_date(request.getDeparture_date())
+		return Bus.builder().name(request.getName()).departure_date_time(request.getDeparture_date_time())
 				.busno(request.getBusno()).fromLoc(request.getFromLoc()).toLoc(request.getToLoc())
-				.noOfSeats(request.getNoOfSeats()).build();
+				.noOfSeats(request.getNoOfSeats()).cost(request.getCost()).build();
 	}
 
 	private BusResponse mapBusResponse(Bus bus) {
-		return BusResponse.builder().name(bus.getName()).departure_date(bus.getDeparture_date()).toLoc(bus.getToLoc())
-				.busno(bus.getBusno()).fromLoc(bus.getFromLoc()).noOfSeats(bus.getNoOfSeats()).build();
+		return BusResponse.builder().name(bus.getName()).departure_date_time(bus.getDeparture_date_time())
+				.id(bus.getId()).toLoc(bus.getToLoc()).busno(bus.getBusno()).fromLoc(bus.getFromLoc())
+				.noOfSeats(bus.getNoOfSeats()).cost(bus.getCost()).build();
 	}
 
 	public ResponseEntity<ResponseStrcture<BusResponse>> saveBus(BusRequest request, Integer admin_id) {
@@ -43,7 +45,7 @@ public class BusService {
 //        	bus.setAdmin(a);
 //            a.getBus().add(bus);
 //            adminDao.saveAdmin(a);
-
+			bus.setAvailableSeats(bus.getNoOfSeats());
 			bus.setAdmin(admin.get());
 			admin.get().getBus().add(bus);
 //			busDao.save(bus); // In Admin Class i have taken CascadeType.ALL so no need to call save method explicitly.
@@ -64,10 +66,12 @@ public class BusService {
 			bus.setId(id);
 			bus.setName(request.getName());
 			bus.setBusno(request.getBusno());
-			bus.setDeparture_date(request.getDeparture_date());
+			bus.setDeparture_date_time(request.getDeparture_date_time());
 			bus.setFromLoc(request.getFromLoc());
 			bus.setToLoc(request.getToLoc());
+			bus.setCost(request.getCost());
 			bus.setNoOfSeats(request.getNoOfSeats());
+			bus.setAvailableSeats(request.getAvailableSeats());
 			bus.setAdmin(request.getAdmin());
 			strcture.setData(mapBusResponse(busDao.save(bus)));
 			strcture.setMessage("Bus Added");
@@ -83,8 +87,8 @@ public class BusService {
 		if (data.isPresent()) {
 			strcture.setData(mapBusResponse(data.get()));
 			strcture.setMessage("Bus Details.");
-			strcture.setStatus(HttpStatus.FOUND.value());
-			return ResponseEntity.status(HttpStatus.FOUND).body(strcture);
+			strcture.setStatus(HttpStatus.OK.value());
+			return ResponseEntity.status(HttpStatus.OK).body(strcture);
 		}
 		throw new BusNotFoundException("Invalid User Id");
 	}
@@ -110,7 +114,7 @@ public class BusService {
 		return ResponseEntity.status(HttpStatus.OK).body(strcture);
 	}
 
-	public ResponseEntity<ResponseStrcture<List<Bus>>> findSpecificBusDetails(String from, String to, String date) {
+	public ResponseEntity<ResponseStrcture<List<Bus>>> findSpecificBusDetails(String from, String to, LocalDate date) {
 		ResponseStrcture<List<Bus>> strcture = new ResponseStrcture<>();
 		List<Bus> bus = busDao.findByDestination(from, to, date);
 		strcture.setData(bus);

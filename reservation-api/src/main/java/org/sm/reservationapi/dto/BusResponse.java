@@ -1,6 +1,7 @@
 package org.sm.reservationapi.dto;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.sm.reservationapi.model.Admin;
 
@@ -16,9 +17,11 @@ import lombok.NoArgsConstructor;
 public class BusResponse {
 	private Integer id;
 	private String name;
-	private LocalDate departure_date;
+	private LocalDateTime departure_date_time;
 	private String busno;
 	private String fromLoc, toLoc;
 	private Integer noOfSeats;
+	private Integer availableSeats;
+	private Double cost;
 	private Admin admin;
 }

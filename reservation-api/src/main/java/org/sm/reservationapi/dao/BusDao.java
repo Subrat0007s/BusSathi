@@ -1,5 +1,6 @@
 package org.sm.reservationapi.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class BusDao {
     public List<Bus> findAllBus() {
     	return repository.findAll();
     }
-    public List<Bus> findByDestination(String from, String to, String date){
+    public List<Bus> findByDestination(String from, String to, LocalDate date){
     	return repository.findByDestination(from, to, date);
     }
     public void deleteBus(Integer bus_id) {

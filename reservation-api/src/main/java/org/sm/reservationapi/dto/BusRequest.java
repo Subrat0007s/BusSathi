@@ -1,6 +1,7 @@
 package org.sm.reservationapi.dto;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.sm.reservationapi.model.Admin;
 
@@ -12,7 +13,7 @@ import lombok.Data;
 public class BusRequest {
 	@NotBlank(message = "Name is Mandatory")
 	private String name;
-	private LocalDate departure_date;
+	private LocalDateTime departure_date_time;
 	@NotBlank(message = "Bus Number is Mandatory")
 	@Size(min = 11, max = 12)
 	private String busno;
@@ -21,5 +22,7 @@ public class BusRequest {
 	@NotBlank(message = "Location is Mandatory")
 	private String toLoc;
 	private Integer noOfSeats;
+	private Integer availableSeats;
+	private Double cost;
 	private Admin admin;
 }

@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @CrossOrigin
@@ -74,16 +76,23 @@ public class AdminController {
 		return adminService.forgotPassword(email, request);
 	}
 
+	@PostMapping("/forgot-password")
+	public String forgotPassword(@RequestParam String email, HttpServletRequest request) {
+		return adminService.forgotPassword(email, request);
+	}
+
 	@GetMapping("/verify-link")
-	public void verifyPassword(@RequestParam String token, HttpServletResponse response) {
+	public void verifyPassword(@RequestParam String token, HttpServletRequest request, HttpServletResponse response) {
 		AdminResponse adminResponse = adminService.verifyLink(token);
-		if (adminResponse != null) {
+		if (adminResponse != null)
 			try {
-				response.sendRedirect("http://localhost:3000/resetpassword");
+				HttpSession session = request.getSession();
+				session.setAttribute("admin", adminResponse);
+				response.addCookie(new Cookie("admin", adminResponse.getEmail()));
+				response.sendRedirect("http://localhost:3000/reset-password");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
 	}
-	
+
 }

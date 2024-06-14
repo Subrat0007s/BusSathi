@@ -36,5 +36,5 @@ public class User {
 	@Column(nullable = false)
 	public String status;
 	@OneToMany(mappedBy = "user")
-	private List<User> ticket;
+	private List<Ticket> tickets;
 }
