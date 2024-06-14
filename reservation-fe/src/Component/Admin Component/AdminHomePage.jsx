@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AdminDashBoard from './AdminDashBoard'
-import AdminNavBar from './AdminNavBar'
-import AddBus from './AddBus'
-import ViewAllBus from './ViewAllBus'
-import EditBus from './EditBus'
+import AdminNavBar from './AdminNavBar';
+import AddBus from '../Bus Component/AddBus';
+import ViewAllBus from '../Bus Component/ViewAllBus'
+import EditBus from '../Bus Component/EditBus';
 
 function AdminHomePage() {
   return (

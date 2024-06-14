@@ -1,6 +1,6 @@
 import React from 'react'
 import UserDropDown from './UserDropDown'
-import styles from '../Style/adminnavbar.module.css'
+import styles from '../Admin Component/adminnavbar.module.css'
 const UserNavBar = () => {
   return (
     <div className={styles.navbar}>

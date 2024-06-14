@@ -1,6 +1,7 @@
 import React from 'react'
-import styles from '../Style/adminnavbar.module.css'
-import LandingPage from './LandingPage'
+import styles from './Admin Component/adminnavbar.module.css'
+
+import LoginOption from './LoginOption'
 const Navbar = () => {
     return (
         <div className={styles.navbar}>
@@ -8,7 +9,7 @@ const Navbar = () => {
                 <h1><i>BusSathi</i><sup><i>.com</i></sup> </h1>
             </div>
             <div className={styles.dropdown}>
-                <LandingPage/>
+                <LoginOption/>
             </div>
         </div>
       )

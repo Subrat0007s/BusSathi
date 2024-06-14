@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom';
 
 const ProtectUser = ({Child}) => {
-  let x=localStorage.getItem("Admin")
+  let x=localStorage.getItem("User")
     function verify() {
         if(x==null){
             return false;
@@ -14,7 +14,7 @@ const ProtectUser = ({Child}) => {
     
   return (
     <div>
-        {verify()?<Child/>:<Navigate to='/adminlogin'/>}
+        {verify()?<Child/>:<Navigate to='/userlogin'/>}
     </div>
   )
 }

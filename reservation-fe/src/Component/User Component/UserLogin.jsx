@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../Style/userlogin.module.css' // Import CSS module
+import styles from './userlogin.module.css' // Import CSS module
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ const UserLogin = () => {
         axios.post(`http://localhost:8088/api/users/verify-by-email?email=${email}&password=${password}`)
             .then((res) => {
                 navigate('/userhomepage');
-                alert("Login Successfull. ");
+                // alert("Login Successfull. ");
                 console.log(res.data.data);
                 localStorage.setItem("User", JSON.stringify(res.data.data));
             })
@@ -40,8 +40,8 @@ const UserLogin = () => {
                         <input type="text" placeholder='Enter your Password..' className={styles.inputField} value={password} onChange={(e) => { setPassword(e.target.value) }} />
                     </div>
                     <div className={styles.btn}>
-                        <button className={styles.button1}>Login</button>
-                        <button className={styles.button2} onClick={() => navigate('/usersignup')}>SignUp</button>
+                        <button type='submit' className={styles.button1}>Login</button>
+                        <button type='button' className={styles.button2} onClick={() => navigate('/usersignup')}>SignUp</button>
                     </div>
                     <button className={styles.button3}>Forgot Password</button>
                 </form>

@@ -1,15 +1,17 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import styles from "../Style/admindashboard.module.css"; // Import CSS module
+import React, { useState } from 'react'
+import styles from "../Admin Component/admindashboard.module.css"
+import { useNavigate } from 'react-router-dom';
 
-const AdminDashBoard = () => {
+
+const UserDashBoard = () => {
   const [fromLoc, setFrom] = useState("");
   const [toLoc, setTo] = useState("");
   const [departure_date_time, setDate] = useState("");
   const [bus, setBus] = useState([]);
   // const e = JSON.parse(localStorage.getItem("Admin"));
   // // console.log("Admin Data:", e);
-
+  var navigate=useNavigate();
   const searchBus = (x) => {
     x.preventDefault();
     console.log("Fetching bus data...");
@@ -36,27 +38,25 @@ const AdminDashBoard = () => {
         <button type="submit">Search</button>
       </form>
       <div className={styles.results}>
-        {bus.length > 0 ? (
-          bus.map((buses) => (
-            <div className={styles.buslist} key={buses.id}>
-              <div className={styles.businfo}>
-                <h3>{buses.name}</h3>
-                <i>Total Seats: {buses.noOfSeats}</i>
-                <i>Available Seats: {buses.availableSeats}</i>
-                <p>From: {buses.fromLoc}</p>
-                <p>To: {buses.toLoc}</p>
-                {/* <p>Date: {buses.departure_date_time}</p> */}
-                <span>Bus Number: {buses.busno}</span>
-                <button className='btn btn-danger'>Book bus</button>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No buses found</p>
+        {bus.length > 0 ? ( bus.map((buses) => (
+                              <div className={styles.buslist} key={buses.id}>
+                                <div className={styles.businfo}>
+                                  <h3>{buses.name}</h3>
+                                  <i>Total Seats: {buses.noOfSeats}</i>
+                                  <i>Available Seats: {buses.availableSeats}</i>
+                                  <p>From: {buses.fromLoc}</p>
+                                  <p>To: {buses.toLoc}</p>
+                                  <p>Date: {buses.departure_date_time}</p>
+                                  <span>Bus Number: {buses.busno}</span>
+                                  <button className='btn btn-danger' onClick={()=>{navigate('/bookbus')}}>Book bus</button>
+                                </div>
+                              </div>
+                            )) ) : (
+                              <p>No buses found</p>
         )}
       </div>
     </div>
   );
 }
 
-export default AdminDashBoard;
+export default UserDashBoard

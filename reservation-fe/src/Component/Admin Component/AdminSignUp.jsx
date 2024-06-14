@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styles from "../Style/adminsignup.module.css"; // Import CSS module
+import styles from "./adminsignup.module.css"; // Import CSS module
 import axios from 'axios';
 
 const AdminSignUp = () => {

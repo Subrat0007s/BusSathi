@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import styles from "../Style/admindropdown.module.css";
-function UserDropDown() {
+import styles from "./admindropdown.module.css";
+
+function AdminDropDowns() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -23,6 +24,7 @@ function UserDropDown() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [isOpen]);
+
     return (
         <div ref={dropdownRef}>
             <Dropdown show={isOpen} onToggle={handleToggle}>
@@ -34,17 +36,17 @@ function UserDropDown() {
                             <path className={styles.line} d="M7 16 27 16"></path>
                         </svg>
                     </div>
-                </Dropdown.Toggle>
 
+                </Dropdown.Toggle>
                 <Dropdown.Menu className={styles.dropdownMenu}>
-                    <Dropdown.Item href="/adminhomepage/updateuser">Profile</Dropdown.Item>
-                    <Dropdown.Item href="#/action-1">Bookings</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Contact Us</Dropdown.Item>
-                    <Dropdown.Item href="/">Log-out</Dropdown.Item>
+                    <Dropdown.Item href="/adminhomepage/addbus" className={styles.dropdownItem}>Add Bus</Dropdown.Item>
+                    <Dropdown.Item href="/adminhomepage/viewbus" className={styles.dropdownItem}>Bus Lists</Dropdown.Item>
+                    <Dropdown.Item href="#/action-4" className={styles.dropdownItem}>Edit profile</Dropdown.Item>
+                    <Dropdown.Item href="/" className={styles.dropdownItem}>Log-out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </div>
     );
 }
 
-export default UserDropDown;
+export default AdminDropDowns;

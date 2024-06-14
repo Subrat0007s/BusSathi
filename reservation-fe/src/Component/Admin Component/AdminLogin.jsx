@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../Style/adminlogin.module.css'; // Import CSS module
+import styles from './adminlogin.module.css'; // Import CSS module
 import axios from 'axios';
 
 const AdminLogin = () => {

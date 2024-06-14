@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import styles from '../Style/editbus.module.css'; // Import the CSS module
+import styles from './editbus.module.css'; // Import the CSS module
 
 const EditBus = () => {
     let [name, setName] = useState("");
