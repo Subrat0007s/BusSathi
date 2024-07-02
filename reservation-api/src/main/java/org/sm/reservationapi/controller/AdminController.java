@@ -89,7 +89,7 @@ public class AdminController {
 				HttpSession session = request.getSession();
 				session.setAttribute("admin", adminResponse);
 				response.addCookie(new Cookie("admin", adminResponse.getEmail()));
-				response.sendRedirect("http://localhost:3000/reset-password");
+				response.sendRedirect("http://localhost:3000/resetpassword");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

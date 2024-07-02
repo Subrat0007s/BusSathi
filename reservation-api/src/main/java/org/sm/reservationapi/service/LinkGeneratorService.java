@@ -36,7 +36,7 @@ public class LinkGeneratorService {
 	}
 
 	public String getResetPasswordLink(Admin admin, HttpServletRequest request) {
-		admin.setToken(RandomString.make(88));
+		admin.setToken(RandomString.make(90));
 		adminDao.saveAdmin(admin);
 		String url = request.getRequestURL().toString();
 		return url.replace(request.getServletPath(), ADMIN_RESET_PASSWORD_LINK) + admin.getToken();

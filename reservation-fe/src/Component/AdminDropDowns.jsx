@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import styles from "./admindropdown.module.css";
+import styles from "../Component/admindropdown.module.css";
 
 function AdminDropDowns() {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +14,14 @@ function AdminDropDowns() {
         }
     };
 
+    const handleLogout = () => {
+        // Clear local storage and session storage on logout
+        localStorage.clear();
+        sessionStorage.clear();
+        // Redirect to the login page or homepage
+        window.location.href = '/';
+    };
+
     useEffect(() => {
         if (isOpen) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -24,6 +32,27 @@ function AdminDropDowns() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [isOpen]);
+
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+            if (!sessionStorage.getItem('isReloading')) {
+                localStorage.clear();
+            }
+            sessionStorage.removeItem('isReloading');
+        };
+
+        const handlePageReload = () => {
+            sessionStorage.setItem('isReloading', 'true');
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('unload', handlePageReload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            window.removeEventListener('unload', handlePageReload);
+        };
+    }, []);
 
     return (
         <div ref={dropdownRef}>
@@ -36,13 +65,12 @@ function AdminDropDowns() {
                             <path className={styles.line} d="M7 16 27 16"></path>
                         </svg>
                     </div>
-
                 </Dropdown.Toggle>
                 <Dropdown.Menu className={styles.dropdownMenu}>
                     <Dropdown.Item href="/adminhomepage/addbus" className={styles.dropdownItem}>Add Bus</Dropdown.Item>
                     <Dropdown.Item href="/adminhomepage/viewbus" className={styles.dropdownItem}>Bus Lists</Dropdown.Item>
-                    <Dropdown.Item href="#/action-4" className={styles.dropdownItem}>Edit profile</Dropdown.Item>
-                    <Dropdown.Item href="/" className={styles.dropdownItem}>Log-out</Dropdown.Item>
+                    <Dropdown.Item href="/adminhomepage/editadmin" className={styles.dropdownItem}>Edit profile</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout} className={styles.dropdownItem}>Log-out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </div>

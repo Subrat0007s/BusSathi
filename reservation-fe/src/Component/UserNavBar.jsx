@@ -1,11 +1,13 @@
 import React from 'react'
 import UserDropDown from './UserDropDown'
-import styles from '../Admin Component/adminnavbar.module.css'
+import styles from './adminnavbar.module.css'
+import { Link } from 'react-router-dom'
+import LandingPage from './LandingPage'
 const UserNavBar = () => {
   return (
     <div className={styles.navbar}>
         <div className={styles.logo}>
-            <h1><i>BusSathi</i><sup><i>.com</i></sup> </h1>
+        <Link to={LandingPage}> <h1><i>BusSathi</i><sup><i>.com</i></sup> </h1></Link>
         </div>
         <div className={styles.option}>
             <UserDropDown/>

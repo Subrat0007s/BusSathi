@@ -1,12 +1,14 @@
 import React from 'react'
-import styles from './Admin Component/adminnavbar.module.css'
+import styles from './navbar.module.css'
 
 import LoginOption from './LoginOption'
+import { Link } from 'react-router-dom'
+import LandingPage from './LandingPage'
 const Navbar = () => {
     return (
         <div className={styles.navbar}>
             <div className={styles.logo}>
-                <h1><i>BusSathi</i><sup><i>.com</i></sup> </h1>
+            <Link to={LandingPage}> <h1><i>BusSathi</i><sup><i>.com</i></sup> </h1></Link>
             </div>
             <div className={styles.dropdown}>
                 <LoginOption/>

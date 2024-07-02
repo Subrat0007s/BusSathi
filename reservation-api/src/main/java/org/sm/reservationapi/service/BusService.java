@@ -27,13 +27,13 @@ public class BusService {
 	private Bus mapBus(BusRequest request) {
 		return Bus.builder().name(request.getName()).departure_date_time(request.getDeparture_date_time())
 				.busno(request.getBusno()).fromLoc(request.getFromLoc()).toLoc(request.getToLoc())
-				.noOfSeats(request.getNoOfSeats()).cost(request.getCost()).build();
+				.noOfSeats(request.getNoOfSeats()).typeofbus(request.getTypeofbus()).cost(request.getCost()).build();
 	}
 
 	private BusResponse mapBusResponse(Bus bus) {
 		return BusResponse.builder().name(bus.getName()).departure_date_time(bus.getDeparture_date_time())
 				.id(bus.getId()).toLoc(bus.getToLoc()).busno(bus.getBusno()).fromLoc(bus.getFromLoc())
-				.noOfSeats(bus.getNoOfSeats()).cost(bus.getCost()).build();
+				.noOfSeats(bus.getNoOfSeats()).typeofbus(bus.getTypeofbus()).cost(bus.getCost()).build();
 	}
 
 	public ResponseEntity<ResponseStrcture<BusResponse>> saveBus(BusRequest request, Integer admin_id) {
@@ -70,6 +70,7 @@ public class BusService {
 			bus.setFromLoc(request.getFromLoc());
 			bus.setToLoc(request.getToLoc());
 			bus.setCost(request.getCost());
+			bus.setTypeofbus(request.getTypeofbus());
 			bus.setNoOfSeats(request.getNoOfSeats());
 			bus.setAvailableSeats(request.getAvailableSeats());
 			bus.setAdmin(request.getAdmin());

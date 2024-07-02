@@ -1,3 +1,5 @@
+/* universaldropdown.module.css */
+
 /* Hamburger styles */
 .hamburger {
     display: flex;
@@ -43,7 +45,6 @@
   .hamburger input:checked + svg .lineTopBottom {
     stroke-dasharray: 20 300;
     stroke-dashoffset: -32.42;
-
   }
   
   /* Dropdown styles */

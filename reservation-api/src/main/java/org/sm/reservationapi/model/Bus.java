@@ -35,6 +35,8 @@ public class Bus {
 	@Column(nullable = false)
 	private String fromLoc, toLoc;
 	@Column(nullable = false)
+	private String typeofbus;
+	@Column(nullable = false)
 	private Integer noOfSeats;
 	@Column(nullable = false)
 	private Integer availableSeats;

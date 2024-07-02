@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './adminlogin.module.css'; // Import CSS module
+import styles from '../Component/adminlogin.module.css'; // Import CSS module
 import axios from 'axios';
+import UniversalNav from './UniversalNav';
 
 const AdminLogin = () => {
     let [email, setEmail] = useState("");
@@ -23,7 +24,7 @@ const AdminLogin = () => {
     }
 
     return (
-        <div>
+        <div><UniversalNav/>
             <form className={styles.form} onSubmit={verify}>
                 <p className={styles.heading}>Admin Login</p>
                 <div className={styles.field}>

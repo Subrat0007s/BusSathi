@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from "./viewbus.module.css"; // Import CSS module
+import styles from "./viewallbus.module.css"; // Import CSS module
 
 const ViewAllBus = () => {
     let [bus, setBus] = useState([]);

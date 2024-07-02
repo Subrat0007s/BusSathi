@@ -61,10 +61,13 @@ public class TicketService {
 		response.setGender(user.getGender());
 		response.setPhone(user.getPhone());
 		response.setEmail(user.getEmail());
+		
 		response.setBusName(bus.getName());
 		response.setSource(bus.getFromLoc());
 		response.setDestination(bus.getToLoc());
+		response.setTypeofbus(bus.getTypeofbus());
 		response.setBusNumber(bus.getBusno());
+		
 		response.setCost(ticket.getCost());
 		response.setId(ticket.getId());
 		response.setNoOfSeatsBooked(ticket.getNoOfSeatsBooked());

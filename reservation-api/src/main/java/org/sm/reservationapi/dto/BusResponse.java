@@ -20,6 +20,7 @@ public class BusResponse {
 	private LocalDateTime departure_date_time;
 	private String busno;
 	private String fromLoc, toLoc;
+	private String typeofbus;
 	private Integer noOfSeats;
 	private Integer availableSeats;
 	private Double cost;

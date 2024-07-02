@@ -24,4 +24,5 @@ public class TicketResponse {
 	private String Source;
 	private String destination;
 	private String busNumber;
+	private String typeofbus;
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import AdminDropDowns from './AdminDropDowns'
-import styles from './adminnavbar.module.css' // Import the CSS module
+import styles from '../Component/adminnavbar.module.css' // Import the CSS module
 
 function AdminNavBar() {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import styles from "../Admin Component/admindropdown.module.css";
+import styles from "./admindropdown.module.css";
 function UserDropDown() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -13,6 +13,13 @@ function UserDropDown() {
         }
     };
 
+    const handleLogout = () => {
+        // Clear local storage
+        localStorage.clear();
+        // Redirect to the login page or homepage
+        window.location.href = '/';
+    };
+
     useEffect(() => {
         if (isOpen) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -23,6 +30,19 @@ function UserDropDown() {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [isOpen]);
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            localStorage.clear();
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+    
     return (
         <div ref={dropdownRef}>
             <Dropdown show={isOpen} onToggle={handleToggle}>
@@ -40,7 +60,7 @@ function UserDropDown() {
                     <Dropdown.Item href="/adminhomepage/updateuser">Profile</Dropdown.Item>
                     <Dropdown.Item href="#/action-1">Bookings</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">Contact Us</Dropdown.Item>
-                    <Dropdown.Item href="/">Log-out</Dropdown.Item>
+                    <Dropdown.Item href={handleLogout}>Log-out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </div>

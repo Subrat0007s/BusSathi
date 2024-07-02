@@ -3,24 +3,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; 
-  margin: 0; 
-  background-image:linear-gradient(rgba(0, 0, 0, 0.685), rgba(80, 77, 77, 0.833)), url("/src/BusImages/_25688f64-d439-4748-a377-b9006638c1fe.jpg");
+  height: 100vh; /* Ensure the body takes up the full height of the viewport */
+  margin: 0; /* Remove default margin */
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 1em;
+  padding: 2em;
   background-color: #232323;
   border-radius: 25px;
   transition: .4s ease-in-out;
-  align-items: center; 
-  justify-content: center; 
-  height: 470px;
-  margin-top: 70px;
-  /* padding: 20px; */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 530px;
+  margin-top: 50px;
 }
 
 .form:hover {
@@ -31,12 +29,10 @@ body {
 .form>p{
   color: aqua;
   font-size: 32px;
-  
-  /* padding: 30px; */
 }
 .heading {
   text-align: center;
-  margin: 1.5em;
+  margin: 2em;
   color: #fff;
   font-size: 1.2em;
 }

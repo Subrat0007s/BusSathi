@@ -22,6 +22,7 @@ public class BusRequest {
 	@NotBlank(message = "Location is Mandatory")
 	private String toLoc;
 	private Integer noOfSeats;
+	private String typeofbus;
 	private Integer availableSeats;
 	private Double cost;
 	private Admin admin;

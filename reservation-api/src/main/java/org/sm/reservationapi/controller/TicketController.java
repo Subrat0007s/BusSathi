@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/book-Ticket")
+@RequestMapping("/api/book-ticket")
 public class TicketController {
 	@Autowired
 	private TicketService service;
