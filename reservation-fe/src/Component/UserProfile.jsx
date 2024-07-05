@@ -1,52 +1,65 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+
 import styles from './usersignup.module.css';
-import UniversalNav from './UniversalNav';
 
 const UserProfile = () => {
-    let { id } = useParams();
     let [name, setName] = useState("");
-    let [age, setAge] = useState("");
-    let [phone, setPhone] = useState("");
     let [email, setEmail] = useState("");
+    let [phone, setPhone] = useState("");
+    let [age, setAge] = useState("");
     let [gender, setGender] = useState("");
+    let [address, setAddress] = useState("");
     let [password, setPassword] = useState("");
+    let [loading, setLoading] = useState(true);
 
+    const data = {
+        name,
+        age,
+        email,
+        phone,
+        address,
+        password
+    };
+
+    let user = JSON.parse(localStorage.getItem("User")); 
     useEffect(() => {
-        axios.get(`http://localhost:8088/api/users/${id}`)
+        axios.get(`http://localhost:8088/api/users/${user.id}`)
             .then((res) => {
-                const userData = res.data;
-                setName(userData.name);
-                setAge(userData.age);
-                setPhone(userData.phone);
-                setEmail(userData.email);
-                setGender(userData.gender);
+                const data = res.data.data;
+                setName(data.name);
+                setEmail(data.email);
+                setPhone(data.phone);
+                setAddress(data.address);
+                setPassword(data.password);
+                setLoading(false);
             })
             .catch((err) => {
-                console.error(err);
-                alert("Failed to fetch user data");
+                console.log(err);
+                alert("Error: Failed to Fetch User Details!");
             });
-    }, [id]);
+    }, [user.id]);
 
-    let data = { name, age, phone, email, gender, password };
-
-    function update(e) {
+    const update = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:8088/api/users/${id}`, data)
+        axios.put(`http://localhost:8088/api/users/${user.id}`, data)
             .then((res) => {
-                alert("User Updated Successfully");
+                alert("User Details Updated Successfully");
                 console.log(res);
             })
             .catch((err) => {
-                alert("Failed to Update Profile");
-                console.error(err);
+                alert("Error: Failed to Update User Details!");
+                console.log(err);
             });
+    };
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
     return (
         <div>
-            <UniversalNav />
+           
             <div className={styles.usersign}>
                 <form onSubmit={update} className={styles.form}>
                     <p className={styles.heading}>Update Profile</p>
@@ -80,5 +93,4 @@ const UserProfile = () => {
         </div>
     );
 };
-
 export default UserProfile;

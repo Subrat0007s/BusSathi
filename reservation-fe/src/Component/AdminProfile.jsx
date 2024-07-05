@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styles from './adminlogin.module.css';
 
-const AdminEdit = () => {
+const AdminProfile = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -99,4 +99,4 @@ const AdminEdit = () => {
     );
 }
 
-export default AdminEdit;
+export default AdminProfile;

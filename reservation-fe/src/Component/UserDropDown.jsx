@@ -70,7 +70,7 @@ function UserDropDown() {
 
                 <Dropdown.Menu className={styles.dropdownMenu}>
                     <Dropdown.Item as={Link} to="/profile/:id">Profile</Dropdown.Item>
-                    <Dropdown.Item href="#/action-1">Bookings</Dropdown.Item>
+                    <Dropdown.Item href="/bookings">Bookings</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">Contact Us</Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout}>Log-out</Dropdown.Item>
                 </Dropdown.Menu>
