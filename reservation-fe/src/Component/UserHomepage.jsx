@@ -3,7 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import UserDashBoard from './UserDashBoard'
 import UserNavBar from './UserNavBar'
 import EditUserDetails from './EditUserDetails'
-import Bookings from './Bus Component/Bookings'
+
+import UserProfile from './UserProfile'
 
 const UserHomepage = () => {
   return (
@@ -12,7 +13,7 @@ const UserHomepage = () => {
         <Routes>
             <Route path='/' element={<UserDashBoard/>}/>
             <Route path='/edituserdetails' element={<EditUserDetails/>}/>  
-            <Route path="/bookings" element={<Bookings />} />
+            <Route path="/profile/:id" element={<UserProfile />} />
         </Routes>
     </div>
   )

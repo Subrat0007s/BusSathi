@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import styles from './editbus.module.css'; // Import the CSS module
 
 const EditBus = () => {
@@ -13,7 +13,15 @@ const EditBus = () => {
     let [cost, setCost] = useState("")
     const [loading, setLoading] = useState(true);
 
-    let BusData = { name, departure_date_time, fromLoc, toLoc, noOfSeats, busno,cost };
+    let BusData = { 
+        name, 
+        departure_date_time, 
+        fromLoc, 
+        toLoc, 
+        noOfSeats, 
+        busno,
+        cost 
+    };
 
     let params = useParams();
     console.log(typeof(params.id));

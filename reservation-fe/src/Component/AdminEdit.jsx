@@ -1,7 +1,5 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import UniversalNav from './UniversalNav';
 import styles from './adminlogin.module.css';
 
 const AdminEdit = () => {
@@ -13,8 +11,6 @@ const AdminEdit = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(true);
 
-    const { id } = useParams(); // Extract 'id' parameter from the URL
-console.log(id);
     const data = {
         name,
         email,
@@ -23,9 +19,10 @@ console.log(id);
         travels_name,
         password
     };
-
+   
+    let admin = JSON.parse(localStorage.getItem("Admin")); 
     useEffect(() => {
-        axios.get(`http://localhost:8088/api/admins/${id}`)
+        axios.get(`http://localhost:8088/api/admins/${admin.id}`)
             .then((res) => {
                 const data = res.data.data;
                 setName(data.name);
@@ -40,11 +37,11 @@ console.log(id);
                 console.log(err);
                 alert("Error: Failed to Fetch Admin Details!");
             });
-    }, [id]);
+    }, [admin.id]);
 
     const editAdmin = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:8088/api/admins/${id}`, data)
+        axios.put(`http://localhost:8088/api/admins/${admin.id}`, data)
             .then((res) => {
                 alert("Admin Details Updated Successfully");
                 console.log(res);
@@ -61,7 +58,6 @@ console.log(id);
 
     return (
         <div>
-            <UniversalNav />
             <div className={styles.adminsign}>
                 <form onSubmit={editAdmin} className={styles.form}>
                     <p className={styles.heading}>Admin Edit</p>

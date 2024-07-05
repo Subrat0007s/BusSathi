@@ -18,6 +18,7 @@ import UserLogin from "./Component/UserLogin";
 import UserHomepage from "./Component/UserHomepage";
 import LandingPage from "./Component/LandingPage";
 import BookBus from "./Component/Bus Component/BookBus";
+import Bookings from "./Component/Bus Component/Bookings";
 // import Bookings from "./Component/Bus Component/Bookings";
 // import Navbar from "./Component/Navbar";
 
@@ -36,8 +37,8 @@ const App = () => {
                     <Route element={<UserSignup />} path="/usersignup" />
                     <Route element={<ProtectUser Child={UserHomepage} />} path="/userhomepage/*" />
                     <Route element={<ResetPassword />} path="/resetpassword" />
-                    <Route path='/bookbus/:id' element={<BookBus />} />
-                    
+                    <Route element={<BookBus />} path='/bookbus/:id' />
+                    <Route path="/bookings" element={<Bookings />} />
                 </Routes>
             </BrowserRouter>
         </div>

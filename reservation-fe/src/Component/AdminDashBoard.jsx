@@ -75,7 +75,7 @@ const AdminDashBoard = () => {
                 <p>From: {buses.fromLoc}</p>
                 <p>To: {buses.toLoc}</p>
                 <span>Bus Number: {buses.busno}</span>
-                <button className='btn btn-danger'>Book bus</button>
+                <button className='btn btn-danger'>Bus Details</button>
               </div>
             </div>
           ))

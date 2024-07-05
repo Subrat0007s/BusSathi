@@ -22,6 +22,11 @@ function AdminDropDowns() {
         window.location.href = '/';
     };
 
+    let admin = JSON.parse(localStorage.getItem("Admin")); 
+    console.log(admin.id);
+    console.log(admin.id);
+
+
     useEffect(() => {
         if (isOpen) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -69,7 +74,7 @@ function AdminDropDowns() {
                 <Dropdown.Menu className={styles.dropdownMenu}>
                     <Dropdown.Item href="/adminhomepage/addbus" className={styles.dropdownItem}>Add Bus</Dropdown.Item>
                     <Dropdown.Item href="/adminhomepage/viewbus" className={styles.dropdownItem}>Bus Lists</Dropdown.Item>
-                    <Dropdown.Item href="/adminhomepage/editadmin" className={styles.dropdownItem}>Edit profile</Dropdown.Item>
+                    <Dropdown.Item href="/adminhomepage/editadmin/:id" className={styles.dropdownItem}>Edit profile</Dropdown.Item>
                     <Dropdown.Item onClick={handleLogout} className={styles.dropdownItem}>Log-out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>

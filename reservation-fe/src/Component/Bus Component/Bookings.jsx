@@ -5,7 +5,7 @@ import 'jspdf-autotable';
 
 const Bookings = () => {
   const location = useLocation();
-  const { bus, selectedSeats, totalPrice } = location.state;
+  const { bus, noOfSeatsBooked } = location.state;
 
   const handleDownloadTicket = () => {
     const doc = new jsPDF();
@@ -14,7 +14,7 @@ const Bookings = () => {
       startY: 30,
       head: [['Name','From', 'To' ,'Bus Type', 'Date', 'Seats', 'Total Price']],
       body: [
-        [bus.name,bus.fromLoc, bus.toLoc,bus.typeofbus, bus.departure_date_time, selectedSeats, totalPrice],
+        [bus.name,bus.fromLoc, bus.toLoc,bus.typeofbus, bus.departure_date_time, noOfSeatsBooked, bus.cost],
       ],
     });
     doc.save('ticket.pdf');
@@ -27,8 +27,8 @@ const Bookings = () => {
         <p><b>From:</b> {bus.fromLoc}</p>
         <p><b>To:</b> {bus.toLoc}</p>
         <p><b>Date:</b> {bus.departure_date_time}</p>
-        <p><b>Seats:</b> {selectedSeats}</p>
-        <p><b>Total Price:</b> &#8377; {totalPrice}</p>
+        <p><b>Seats:</b> {noOfSeatsBooked}</p>
+        <p><b>Total Price:</b> &#8377; {bus.cost}</p>
       </div>
       <button onClick={handleDownloadTicket}>Download Ticket as PDF</button>
     </div>

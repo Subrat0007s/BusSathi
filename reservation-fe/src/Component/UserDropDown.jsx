@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import styles from "./admindropdown.module.css";
+import { Link } from 'react-router-dom';
+
 function UserDropDown() {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -16,6 +18,7 @@ function UserDropDown() {
     const handleLogout = () => {
         // Clear local storage
         localStorage.clear();
+        sessionStorage.clear();
         // Redirect to the login page or homepage
         window.location.href = '/';
     };
@@ -32,17 +35,26 @@ function UserDropDown() {
     }, [isOpen]);
 
     useEffect(() => {
-        const handleBeforeUnload = () => {
-            localStorage.clear();
+        const handleBeforeUnload = (event) => {
+            if (!sessionStorage.getItem('isReloading')) {
+                localStorage.clear();
+            }
+            sessionStorage.removeItem('isReloading');
+        };
+
+        const handlePageReload = () => {
+            sessionStorage.setItem('isReloading', 'true');
         };
 
         window.addEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('unload', handlePageReload);
 
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
+            window.removeEventListener('unload', handlePageReload);
         };
     }, []);
-    
+
     return (
         <div ref={dropdownRef}>
             <Dropdown show={isOpen} onToggle={handleToggle}>
@@ -57,10 +69,10 @@ function UserDropDown() {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className={styles.dropdownMenu}>
-                    <Dropdown.Item href="/adminhomepage/updateuser">Profile</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/profile/:id">Profile</Dropdown.Item>
                     <Dropdown.Item href="#/action-1">Bookings</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">Contact Us</Dropdown.Item>
-                    <Dropdown.Item href={handleLogout}>Log-out</Dropdown.Item>
+                    <Dropdown.Item onClick={handleLogout}>Log-out</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </div>
